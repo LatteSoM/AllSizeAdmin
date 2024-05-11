@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <h2>{{ view.title }}</h2>
+{#  <form method="post" enctype="multipart/form-data">#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <button type="submit">Сохранить</button>#}
+{#  </form>#}
+{#  <a href="{% url 'brands_list' %}">Назад к списку товаров</a>#}
+
+    <div class="card text-center" style="color: white; border-color: white; background-color: black">
+      <div class="card-header">
+        Создание записи
+      </div>
+      <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" style="color: white;background-color: #0a3622; border-color: white" type="submit">Сохранить</button>
+          </form>
+      </div>
+      <div class="card-footer text-body-secondary">
+          <a class="btn btn-info" style="background-color: black; border-color: white; color: white" href="{% url 'order_list' %}">Назад к списку Заказов</a>
+      </div>
+    </div>
+{% endblock %}

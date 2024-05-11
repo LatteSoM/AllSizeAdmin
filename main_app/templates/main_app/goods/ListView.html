@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2 style="color: white">Список Товаров</h2>
+    <div class="d-flex justify-content-start flex-wrap gap-2 ">
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?export">Экспорт в Excel</a>
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?backup_db">Backup Database</a>
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?graph"> График в студию</a>
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="{% url 'goods_add' %}">Добавить Товар</a>
+    </div>
+    <br>
+    <h3 style="color: white">Фильтрация и поиск</h3>
+
+    <form method="get" class="d-flex justify-content-start gap-1">
+      <input type="text" name="model_name__icontains" placeholder="Поиск по Названию...">
+      <input type="number" name="price__gt" placeholder="Цена от...">
+      <input type="number" name="price__lt" placeholder="Цена Do...">
+
+        <select class="form-select-sm" style="background-color: white" name="is_active">
+            <option value="True">Активные</option>
+            <option value="False">В архиве</option>
+            <!-- Опции для категорий -->
+        </select>
+        <select class="form-select-sm" style="background-color: white" name="sale_confirmed">
+            <option value="True">Есть скдк</option>
+            <option value="False">нет скдк</option>
+            <!-- Опции для категорий -->
+        </select>
+
+        <select class="form-select-sm" style="background-color: white" name="brand">
+            {% for brand in avalible_brands %}
+            	<option value="{{ brand.pk }}">{{ brand.brand_name }}</option>
+            {% endfor %}
+        </select>
+        <select class="form-select-sm" style="background-color: white" name="brand">
+            {% for cat in avalible_cats %}
+            	<option value="{{ cat.pk }}">{{ cat.category_name }}</option>
+            {% endfor %}
+        </select>
+
+{#      <select name="category__exact">#}
+{#        <option value="">Выберите категорию...</option>#}
+{#        <!-- Опции для категорий -->#}
+{#      </select>#}
+      <!-- Аналогично для других фильтров -->
+      <button class="btn btn-primary" style="color: white; background-color: black; border-color: white" type="submit">применить</button>
+    </form>
+    <br>
+{#    <a class="btn btn-primary" href="{% url 'brands_add' %}">Добавить Бренд</a>#}
+    <br>
+    <br>
+    <div class="d-flex justify-content-center gap-2 flex-wrap" style="border-color: #1a1d20; border-width: 2px;">
+         {% for good in goods_list %}
+            <a class="d-flex" href="{% url 'cats_detail' good.pk %}" style="text-decoration: none">
+                <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                    <img src="{{ good.main_pic.url }}" class="card-img-top" alt="...">
+                    <div class="card-body d-flex justify-content-between flex-column gap-2">
+                        {% if good.is_active %}
+                            <h5 class="card-title" style="color: white">{{ good.model_name }}</h5>
+                            <p> </p>
+                        {% elif not good.is_active %}
+                            <h5 class="card-title" style="color: white">{{ good.model_name }}(в ариве) </h5>
+                            <p> </p>
+                        {% endif %}
+                        {% if good.sale_confirmed %}
+                            <a  style="color: red">Цена: {{ good.price_with_sale }}</a>
+                            {% else %}
+                            <a style="color: white">Цена: {{ good.price }}</a>
+
+                        {% endif %}
+
+                        <a href="{% url 'goods_update' good.pk %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        <a href="{% url 'goods_delete' good.pk %}" class="btn btn-danger">Удалить</a>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+    </div>
+
+    {% include 'main_app/inc/paginator.html' %}
+    <br>
+    <br>
+    <!-- brands_list.html -->
+    <div class="card bg-black" style="width: 28rem; border-color: white; color: white">
+      <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <table>
+                <!-- Заголовки таблицы -->
+                <tr class="d-flex gap-3">
+                    <th></th>
+                    <th>Название</th>
+                </tr>
+
+                {% for good in goods_no_active %}
+                <tr class="d-flex gap-3">
+                    <td><input type="checkbox" name="selected_ids" value="{{ good.id }}"></td>
+                    <td>{{ good.model_name }}</td>
+                    <!-- другие поля -->
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="btn btn-danger" type="submit" name="delete_selected">Удалить выбранные</button>
+            <button class="btn btn-primary" type="submit" style="color: white; background-color: black; border-color: white" name="restore_selected">Восстановить выбранные</button>
+        </form>
+      </div>
+    </div>
+
+
+{% endblock %}

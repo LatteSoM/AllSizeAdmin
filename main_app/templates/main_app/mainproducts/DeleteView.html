@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2 style="color: white">Вы уверены, что хотите удалить "{{ mainproducts.good_id.model_name }}"?</h2>
+
+  <form method="post">
+    {% csrf_token %}
+       <div class="card text-bg-danger mb-3" style="max-width: 18rem;">
+          <div class="card-header">ОПАСНАСТЬ</div>
+          <div class="card-body">
+              <h5 class="card-title">Вы уверены, что хотите удалить фокус-Товар для "{{ mainproducts.good_id.model_name }}"?</h5>
+              <p class="card-text">Увы, из этого удаления нельзя будет восстановить данные</p>
+              <br>
+              <button class="btn btn-primary" type="submit" style="border-color: white; background-color: black; color: white">Удалить</button>
+              <a class="btn btn-danger" href="{% url 'mainproducts_detail' mainproducts.pk %}" style="border-color: white">Отмена</a>
+          </div>
+       </div>
+{#    <button type="submit">Удалить</button>#}
+{#    <a href="{% url 'brands_detail' brands.pk %}">Отмена</a>#}
+  </form>
+{% endblock %}

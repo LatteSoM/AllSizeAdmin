@@ -1,0 +1,18 @@
+{% include 'inc/_cnnct_links.html' %}
+{% load static %}
+<body class="bg-black" style="width: 100%">
+    <div class="wrapper">
+    
+        {% include 'inc/_header.html' %}
+        <main class="main">
+            <div class="container-fluid">
+                <div class="container">
+                    {% block content %}
+                        <h1>Блок-контента</h1>
+                    {% endblock %}
+                </div>
+            </div>
+        </main>
+{#        {% include 'inc/_footer.html' %}#}
+    </div>
+</body>

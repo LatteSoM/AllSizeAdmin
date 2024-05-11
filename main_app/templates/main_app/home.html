@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="d-flex justify-content-center flex-column">
+        <h1 class="d-flex justify-content-center" style="color: white">Список таблиц:</h1>
+        <br>
+        <br>
+
+        <ul>
+{#            <li><a href="{% url 'goods_list' %}" style="color: white">Товары</a></li>#}
+{#            <li><a href="{% url 'brands_list' %}" style="color: white">Бренды</a></li>#}
+{#            <li><a href="{% url 'cats_list' %}" style="color: white">Категории</a></li>#}
+{#            <li><a href="{% url 'colors_list' %}" style="color: white">Цвета</a></li>#}
+{#            <li><a href="{% url 'sizes_list' %}" style="color: white">Размеры</a></li>#}
+{#            <li><a href="{% url 'hugecards_list' %}" style="color: white">Большая карта</a></li>#}
+{#            <li><a href="{% url 'maincats_list' %}" style="color: white">Главные категории</a></li>#}
+{#            <li><a href="{% url 'mainbrands_list' %}" style="color: white">Главные бренды</a></li>#}
+{#            <li><a href="{% url 'mainproducts_list' %}" style="color: white">Главные товары</a></li>#}
+{#            <li><a href="{% url 'sizestogoodtable_list' %}" style="color: white">Связь Товар-Размер</a></li>#}
+{#            <li><a href="{% url 'order_list' %}" style="color: white">Заказы</a></li>#}
+{#            <li><a href="{% url 'ordertouser_list' %}" style="color: white">Связь заказ-товар</a></li>#}
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap" style="border-color: #1a1d20; border-width: 2px;">
+                <a class="d-flex" href="{% url 'goods_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Товары </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'brands_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Бренды </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'cats_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Категории </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'colors_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Цвета </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'sizes_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Размер </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'hugecards_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Большие карты </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'maincats_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Главные категории </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'mainbrands_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Главные бренды </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'mainproducts_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Главные товары </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'sizestogoodtable_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Товар-размер </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'order_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Заказы </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="d-flex" href="{% url 'ordertouser_list' %}" style="text-decoration: none">
+                    <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+                        <div class="card-body d-flex justify-content-between flex-column gap-2">
+
+                                <h5 class="card-title" style="color: white"> Заказ-Товар </h5>
+
+                            <a href="{% url 'goods_list' %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+    </div>
+        </ul>
+    </div>
+{% endblock %}

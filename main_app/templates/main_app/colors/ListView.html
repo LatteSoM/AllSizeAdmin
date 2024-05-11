@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2 style="color: white">Список Цветов</h2>
+    <div class="d-flex justify-content-start flex-wrap gap-2">
+    <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?export">Экспорт в Excel</a>
+    <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?backup_db">Backup Database</a>
+    <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="{% url 'colors_add' %}">Добавить Цвет</a>
+
+
+    </div>
+{#    <a class="btn btn-primary" href="?export">Экспорт в Excel</a>#}
+{#    <br>#}
+{#    <br>#}
+{#    <a class="btn btn-primary" href="?backup_db">Backup Database</a>#}
+{#    <br>#}
+    <br>
+    <h3 style="color: white">Фильтрация и поиск</h3>
+
+    <form method="get" class="d-flex justify-content-center gap-1">
+      <input type="text" name="color__icontains" placeholder="Поиск по бренду...">
+{#      <input type="number" name="price__gt" placeholder="Цена от...">#}
+{#      <input type="checkbox" name="is_active__exact=True" placeholder="Сущ записиси">#}
+{#      <input type="checkbox" name="is_active__exact=False" placeholder="Не сущ записиси">#}
+        <select class="form-select-sm" style="background-color: white" name="is_active">
+            <option value="True">Активные</option>
+            <option value="False">В архиве</option>
+            <!-- Опции для категорий -->
+        </select>
+
+{#      <select name="category__exact">#}
+{#        <option value="">Выберите категорию...</option>#}
+{#        <!-- Опции для категорий -->#}
+{#      </select>#}
+      <!-- Аналогично для других фильтров -->
+      <button class="btn btn-primary" style="color: white; background-color: black; border-color: white" type="submit">применить</button>
+    </form>
+    <br>
+{#    <a class="btn btn-primary" href="{% url 'brands_add' %}">Добавить Бренд</a>#}
+    <br>
+    <br>
+    <div class="d-flex justify-content-center gap-2 flex-wrap" style="border-color: #1a1d20; border-width: 2px;">
+         {% for color in colors_list %}
+            <a class="d-flex" href="{% url 'colors_detail' color.pk %}" style="text-decoration: none">
+                <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+{#                    <img src="{{ color.brands_pic.url }}" class="card-img-top" alt="...">#}
+                    <div class="card-body">
+                        {% if color.is_active %}
+                            <h5 class="card-title" style="color: white">{{ color.color }}</h5>
+                        {% elif not color.is_active %}
+                            <h5 class="card-title" style="color: white">{{ color.color }}(в ариве) </h5>
+                        {% endif %}
+                        <a href="{% url 'colors_update' color.pk %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактироватттть</a>
+                        <a href="{% url 'colors_delete' color.pk %}" class="btn btn-danger">Удалить</a>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+    </div>
+
+    {% include 'main_app/inc/paginator.html' %}
+    <br>
+    <br>
+    <!-- brands_list.html -->
+    <div class="card bg-black" style="width: 28rem; border-color: white; color: white">
+      <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <table>
+                <!-- Заголовки таблицы -->
+                <tr class="d-flex gap-3">
+                    <th></th>
+                    <th>Название</th>
+                    <!-- другие поля -->
+                </tr>
+
+                <!-- Список брендов -->
+                {% for color in colors_no_active %}
+                <tr class="d-flex gap-3">
+                    <td><input type="checkbox" name="selected_ids" value="{{ color.id }}"></td>
+                    <td>{{ color.color }}</td>
+                    <!-- другие поля -->
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="btn btn-danger" type="submit" name="delete_selected">Удалить выбранные</button>
+            <button class="btn btn-primary" type="submit" style="color: white; background-color: black; border-color: white"     name="restore_selected">Восстановить выбранные</button>
+        </form>
+      </div>
+    </div>
+
+{#    <form method="post">#}
+{#        {% csrf_token %}#}
+{#        <table>#}
+{#            <!-- Заголовки таблицы -->#}
+{#            <tr class="d-flex gap-3">#}
+{#                <th></th>#}
+{#                <th>Название</th>#}
+{#                <!-- другие поля -->#}
+{#            </tr>#}
+{##}
+{#            <!-- Список брендов -->#}
+{#            {% for brand in brands_no_active %}#}
+{#            <tr class="d-flex gap-3">#}
+{#                <td><input type="checkbox" name="selected_ids" value="{{ brand.id }}"></td>#}
+{#                <td>{{ brand.brand_name }}</td>#}
+{#                <!-- другие поля -->#}
+{#            </tr>#}
+{#            {% endfor %}#}
+{#        </table>#}
+{#        <button class="btn btn-danger" type="submit" name="delete_selected">Удалить выбранные</button>#}
+{#        <button class="btn btn-primary" type="submit" name="restore_selected">Восстановить выбранные</button>#}
+{#    </form>#}
+
+
+{% endblock %}

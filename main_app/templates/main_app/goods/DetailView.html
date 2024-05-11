@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2 style="color: white" >Детали Категории: {{ cats.category_name }}</h2>
+{#    <p><strong>Название бренда</strong> {{ brands.brand_name }}</p>#}
+    <!-- ... другие детали товара -->
+{#    <a href="{% url 'brands_update' brands.pk %}">редактировать</a>#}
+{#    <a href="{% url 'brands_delete' brands.pk %}">удалить</a>#}
+{#    <a href="{% url 'brands_list' %}">Назад к списку брендов</a>#}
+
+    <div class="card mb-3" style="max-width: 540px; background-color: black; color: white; border-color: white">
+      <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ goods.main_pic.url }}" class="img-fluid" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+              <h5 class="card-title">Название: {{ goods.model_name }}</h5>
+            <h5 class="card-title">Категория: {{ goods.category.category_name }}</h5>
+            <h5 class="card-title">Бренд: {{ goods.brand_id.brand_name }}</h5>
+            <h5 class="card-title">Описание: {{ goods.description }}</h5>
+            <h5 class="card-title">Цена: {{ goods.price }}</h5>
+            <h5 class="card-title">Цена: со скидкой {{ goods.price_with_sale }}</h5>
+            <h5 class="card-title">Артикул: {{ goods.articul }}</h5>
+            <h5 class="card-title">Включена скидка: {{ goods.sale_confirmed }}</h5>
+            <p class="card-text">Активно: {{ goods.is_active }}</p>
+            <br>
+              <div class="d-flex flex-column gap-1">
+                  <a href="{% url 'goods_update' goods.pk %}" style="border-color: white; background-color: black; color: white" class="btn btn-primary">редактировать</a>
+                <a href="{% url 'goods_delete' goods.pk %}" class="btn btn-danger">удалить</a>
+                <a href="{% url 'goods_list' %}" class="btn btn-primary" style="border-color: white; background-color: black; color: white">Назад к списку товаров</a>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

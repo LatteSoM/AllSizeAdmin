@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2 style="color: white">Список Заказов</h2>
+    <div class="d-flex justify-content-start flex-wrap gap-2">
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?export">Экспорт в Excel</a>
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="?backup_db">Backup Database</a>
+        <a class="btn btn-primary" style="color: white; background-color: black; border-color: white" href="{% url 'order_add' %}">Добавить Заказ</a>
+    </div>
+    <br>
+    <h3 style="color: white">Фильтрация и поиск</h3>
+
+    <form method="get" class="d-flex justify-content-center gap-1">
+      <input type="text" name="phone_number__icontains" placeholder="Поиск по номеру...">
+        <select class="form-select-sm" style="background-color: white" name="is_active">
+            <option value="True">Активные</option>
+            <option value="False">В архиве</option>
+            <!-- Опции для категорий -->
+        </select>
+
+        <select class="form-select-sm" style="background-color: white" name="user">
+            <option></option>
+            {% for user in avalible_users %}
+            	<option value="{{ user.pk }}">{{ user.login }}</option>
+            {% endfor %}
+        </select>
+
+      <button class="btn btn-primary" style="color: white; background-color: black; border-color: white" type="submit">применить</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center gap-2 flex-wrap" style="border-color: #1a1d20; border-width: 2px;">
+         {% for order in order_list %}
+            <a class="d-flex" href="{% url 'order_detail' order.pk %}" style="text-decoration: none">
+                <div class="card"  style="width: 18rem; background-color: black; border-color: white">
+{#                    <img src="{{ order.good.main_pic.url }}" class="card-img-top" alt="...">#}
+                    <div class="card-body d-flex justify-content-between flex-column gap-2">
+                        {% if order.is_active %}
+                            <h5 class="card-title" style="color: white">{{ order.user.login }}</h5>
+                        {% elif not order.is_active %}
+                            <h5 class="card-title" style="color: white">{{ order.user.login }}(в ариве) </h5>
+                        {% endif %}
+                        <A class="card-title" style="color: white"> НОМЕР {{ order.phone_number }}</A>
+                        <a href="{% url 'order_update' order.pk %}" class="btn btn-primary" style="color: white; background-color: black; border-color: white">Редактировать</a>
+                        <a href="{% url 'order_delete' order.pk %}" class="btn btn-danger">Удалить</a>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+
+    </div>
+
+    {% include 'main_app/inc/paginator.html' %}
+    <br>
+    <br>
+    <!-- brands_list.html -->
+    <div class="card bg-black" style="width: 28rem; border-color: white; color: white">
+      <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <table>
+                <!-- Заголовки таблицы -->
+                <tr class="d-flex gap-3">
+                    <th></th>
+                    <th>Название</th>
+                </tr>
+
+                {% for zap in sizestogood_no_active %}
+                <tr class="d-flex gap-3">
+                    <td><input type="checkbox" name="selected_ids" value="{{ zap.id }}"></td>
+                    <td>{{ zap.good.model_name }} - {{ zap.size.size }}</td>
+                    <!-- другие поля -->
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="btn btn-danger" type="submit" name="delete_selected">Удалить выбранные</button>
+            <button class="btn btn-primary" type="submit" style="color: white; background-color: black; border-color: white"     name="restore_selected">Восстановить выбранные</button>
+        </form>
+      </div>
+    </div>
+
+
+{% endblock %}

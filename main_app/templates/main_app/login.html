@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h1 style="color: white">LOgginPage</h1>
+    <div class="d-flex" style="border-width: thin; border-color: white; background-color: black">
+        <form class="d-flex justify-content-center flex-column" method="post" style="color: white; width: 18em; border-color: white; border-width: 4px">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" style="color: white; background-color: black; border-width: thin; border-color: white" type="submit">register</button>
+        </form>
+    </div>
+
+{% endblock %}

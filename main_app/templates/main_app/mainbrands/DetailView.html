@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h2 style="color: white" >Детали Фокус-Бренда: {{ mainbrands.brand_id.brand_name }}</h2>
+{#    <p><strong>Название бренда</strong> {{ brands.brand_name }}</p>#}
+    <!-- ... другие детали товара -->
+{#    <a href="{% url 'brands_update' brands.pk %}">редактировать</a>#}
+{#    <a href="{% url 'brands_delete' brands.pk %}">удалить</a>#}
+{#    <a href="{% url 'brands_list' %}">Назад к списку брендов</a>#}
+
+    <div class="card mb-3" style="max-width: 540px; background-color: black; color: white; border-color: white">
+      <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ mainbrands.brand_id.brands_pic.url }}" class="img-fluid" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+              <h5 class="card-title">{{ mainbrands.brand_id.brand_name }}</h5>
+{#            <h5 class="card-title">{{ hugecards.description }}</h5>#}
+            <p class="card-text">Активно: {{ mainbrands.is_active }}</p>
+            <br>
+              <div class="d-flex flex-column gap-1">
+                  <a href="{% url 'mainbrands_update' mainbrands.pk %}" style="border-color: white; background-color: black; color: white" class="btn btn-primary">редактировать</a>
+                <a href="{% url 'mainbrands_delete' mainbrands.pk %}" class="btn btn-danger">удалить</a>
+                <a href="{% url 'mainbrands_list' %}" class="btn btn-primary" style="border-color: white; background-color: black; color: white">Назад к списку Брендов</a>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
